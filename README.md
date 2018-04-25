@@ -3,8 +3,6 @@ emq_kafka_plugin
 
 This is a plugin for the EMQ broker that sends all messages received by the broker to kafka.
 
-Courtesy: SkylineLabs/emqttd_kafka_bridge
-
 Step 1 — Create a User for Kafka
 --------------------------------
 
@@ -234,7 +232,9 @@ Thanks
 This project is based on the code of:
 
 Erlang MQTT Broker [EMQTTD](https://github.com/emqtt/emqttd)
+
 Helpshift Ekaf [ekaf](https://github.com/helpshift/ekaf)
+
 SkylineLabs [emqttd_kafka_bridge](https://github.com/SkylineLabs/emqttd_kafka_bridge)
 
 
