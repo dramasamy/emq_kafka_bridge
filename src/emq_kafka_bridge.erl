@@ -89,7 +89,7 @@ on_message_publish(Message = #mqtt_message{topic = <<"$SYS/", _/binary>>}, _Env)
 on_message_publish(Message, _Env) ->
     io:format("publish ~s~n", [emqttd_message:format(Message)]),   
 
-    From      = Message#mqtt_message.from,
+    {ClientId, Username} = Message#mqtt_message.from,
     Topic     = Message#mqtt_message.topic,
     Payload   = Message#mqtt_message.payload, 
     QoS       = Message#mqtt_message.qos,
@@ -98,7 +98,8 @@ on_message_publish(Message, _Env) ->
     Json = mochijson2:encode([
         {type, <<"published">>},
         {topic, Topic},
-        {from, <<From>>},
+        {client_id, ClientId},
+        {username, Username},
         {payload, Payload},
         {qos, QoS},
         {cluster_node, node()},
