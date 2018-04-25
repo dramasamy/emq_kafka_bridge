@@ -193,7 +193,7 @@ You will have to edit the configurations of the bridge to set the kafka Ip addre
 Edit the file emq-relx/_rel/emqttd/etc/plugins/emq_kafka_bridge.config
 ```
 [
-  {emqttd_kafka_bridge, [{values, [
+  {emq_kafka_bridge, [{values, [
 	  %%edit this to address and port on which kafka is running
       {bootstrap_broker, {"127.0.0.1", 9092} },
 	  %% partition strategies can be strict_round_robin or random
