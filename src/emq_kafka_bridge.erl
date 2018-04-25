@@ -86,21 +86,28 @@ on_session_terminated(ClientId, Username, Reason, _Env) ->
 on_message_publish(Message = #mqtt_message{topic = <<"$SYS/", _/binary>>}, _Env) ->
     {ok, Message};
 
-on_message_publish(Message = #mqtt_message{pktid   = PkgId,
-                        qos     = Qos,
-                        retain  = Retain,
-                        dup     = Dup,
-                        topic   = Topic,
-                        payload = Payload
-						}, _Env) ->
-    io:format("publish ~s~n", [emqttd_message:format(Message)]),
-    Str1 = <<"{\"topic\":\"">>,
-    Str2 = <<"\", \"message\":[">>,
-    Str3 = <<"]}">>,
-    Str4 = <<Str1/binary, Topic/binary, Str2/binary, Payload/binary, Str3/binary>>,
-	{ok, KafkaTopic} = application:get_env(emq_kafka_bridge, values),
-    ProduceTopic = proplists:get_value(kafka_producer_topic, KafkaTopic),
-    ekaf:produce_async(ProduceTopic, Str4),	
+on_message_publish(Message, _Env) ->
+    io:format("publish ~s~n", [emqttd_message:format(Message)]),   
+
+    From      = Message#mqtt_message.from,
+    Sender    = Message#mqtt_message.sender,
+    Topic     = Message#mqtt_message.topic,
+    Payload   = Message#mqtt_message.payload, 
+    QoS       = Message#mqtt_message.qos,
+    Timestamp = Message#mqtt_message.timestamp,
+
+    Json = mochijson2:encode([
+        {type, <<"published">>},
+        {client_id, From},
+        {topic, Topic},
+        {payload, Payload},
+        {qos, QoS},
+        {cluster_node, node()},
+        {ts, emqttd_time:now_to_secs(Timestamp)}
+    ]),
+
+    ekaf:produce_async_batched(<<"broker_message">>, list_to_binary(Json)),
+
     {ok, Message}.
 
 
