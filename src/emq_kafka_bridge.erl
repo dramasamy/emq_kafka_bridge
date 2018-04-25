@@ -102,7 +102,7 @@ on_message_publish(Message, _Env) ->
         {payload, Payload},
         {qos, QoS},
         {cluster_node, node()},
-        {ts, emqttd_time:now_to_secs(Timestamp)}
+        {ts, emqttd_time:now_ms(Timestamp)}
     ]),
 
     {ok, KafkaTopic} = application:get_env(emq_kafka_bridge, values),
