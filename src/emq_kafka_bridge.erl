@@ -90,7 +90,6 @@ on_message_publish(Message, _Env) ->
     io:format("publish ~s~n", [emqttd_message:format(Message)]),   
 
     From      = Message#mqtt_message.from,
-    Sender    = Message#mqtt_message.sender,
     Topic     = Message#mqtt_message.topic,
     Payload   = Message#mqtt_message.payload, 
     QoS       = Message#mqtt_message.qos,
@@ -106,7 +105,10 @@ on_message_publish(Message, _Env) ->
         {ts, emqttd_time:now_to_secs(Timestamp)}
     ]),
 
-    ekaf:produce_async_batched(<<"broker_message">>, list_to_binary(Json)),
+    {ok, KafkaTopic} = application:get_env(emq_kafka_bridge, values),
+    ProduceTopic = proplists:get_value(kafka_producer_topic, KafkaTopic),
+
+    ekaf:produce_async_batched(ProduceTopic, list_to_binary(Json)),
 
     {ok, Message}.
 
