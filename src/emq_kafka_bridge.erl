@@ -97,7 +97,6 @@ on_message_publish(Message, _Env) ->
 
     Json = mochijson2:encode([
         {type, <<"published">>},
-        {client_id, From},
         {topic, Topic},
         {payload, Payload},
         {qos, QoS},
