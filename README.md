@@ -205,10 +205,12 @@ Edit the file emq-relx/_rel/emqttd/etc/plugins/emq_kafka_bridge.config
 ```
 
 Start the EMQ broker and load the plugin 
------------------
-1) cd emq-relx/_rel/emqttd
-2) ./bin/emqttd start
-3) ./bin/emqttd_ctl plugins load emq_kafka_bridge
+----------------------------------------
+```
+cd emq-relx/_rel/emqttd
+./bin/emqttd start
+./bin/emqttd_ctl plugins load emq_kafka_bridge
+```
 
 Test
 -----------------
