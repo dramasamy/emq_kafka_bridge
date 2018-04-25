@@ -229,4 +229,12 @@ License
 
 Apache License Version 2.0
 
+Thanks
+------
+This project is based on the code of:
+
+Erlang MQTT Broker [EMQTTD](https://github.com/emqtt/emqttd)
+Helpshift Ekaf [ekaf](https://github.com/helpshift/ekaf)
+SkylineLabs [emqttd_kafka_bridge](https://github.com/SkylineLabs/emqttd_kafka_bridge)
+
 
