@@ -229,7 +229,7 @@ Apache License Version 2.0
 
 Thanks
 ------
-This project is based on the code of:
+This project is based on following repos,
 
 Erlang MQTT Broker [EMQTTD](https://github.com/emqtt/emqttd)
 
