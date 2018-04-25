@@ -54,9 +54,9 @@ Test
 Send an MQTT message on a random topic from an MQTT client to you EMQ broker.
 
 The following should be received by your kafka consumer :
-
+```	
 {"type":"published","topic":"bbio/bhoruka/publish","client_id":"basicPubSub","username":"test","payload":"{"Hello World!"}","qos":1,"cluster_node":"emq@127.0.0.1","ts":1524625323880}
-
+```	
 This is the format in which kafka will receive the MQTT messages
 
 If Kafka consumer shows no messages even after publishing to EMQTT - ACL makes the plugin fail, so please remove all the ACL related code to ensure it runs properly. 
